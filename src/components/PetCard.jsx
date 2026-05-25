@@ -49,7 +49,7 @@ const PetCard = ({ petInfo }) => {
                         </Link>
                     </div>
                     <div>
-                        <AdoptModal />
+                        <AdoptModal petInfo={petInfo}/>
                     </div>
                 </div>
             </div>

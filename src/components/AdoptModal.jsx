@@ -2,59 +2,37 @@
 
 import { Envelope } from "@gravity-ui/icons";
 import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import { useState } from "react";
+import AdoptForm from "./AdoptForm";
 
-export function AdoptModal() {
+export function AdoptModal({ petInfo }) {
+    const petName = petInfo.name;
+    
+    
+
     return (
         <Modal>
-            <Button className=' w-full py-2.5 px-4 rounded-xl bg-[#D66237] text-white font-semibold transition-all hover:scale-105 duration-300 active:bg-[#ae4725] shadow-sm'>
+            <Button className='w-full py-2.5 px-4 rounded-xl bg-[#D66237] text-white font-semibold transition-all hover:scale-105 duration-300 active:bg-[#ae4725] shadow-sm cursor-pointer'>
                 Adopt Now
             </Button>
+            
             <Modal.Backdrop>
                 <Modal.Container placement="auto">
                     <Modal.Dialog className="sm:max-w-md">
                         <Modal.CloseTrigger />
+                        
                         <Modal.Header>
-                            <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                <Envelope className="size-5" />
-                            </Modal.Icon>
-                            <Modal.Heading>Contact Us</Modal.Heading>
+                            <Modal.Heading className="bg-amber-100 text-[#D66237] w-fit mx-auto px-4 py-1.5 rounded-full font-bold">Adopt {petName}</Modal.Heading>
                             <p className="mt-1.5 text-sm leading-5 text-muted">
-                                Fill out the form below and we'll get back to you. The modal adapts automatically
-                                when the keyboard appears on mobile.
+                                Complete your request form info below. Apply directly and schedule a pick-up window.
                             </p>
                         </Modal.Header>
+                        
                         <Modal.Body className="p-6">
                             <Surface variant="default">
-                                <form className="flex flex-col gap-4">
-                                    <TextField className="w-full" name="name" type="text" variant="secondary">
-                                        <Label>Name</Label>
-                                        <Input placeholder="Enter your name" />
-                                    </TextField>
-                                    <TextField className="w-full" name="email" type="email" variant="secondary">
-                                        <Label>Email</Label>
-                                        <Input placeholder="Enter your email" />
-                                    </TextField>
-                                    <TextField className="w-full" name="phone" type="tel" variant="secondary">
-                                        <Label>Phone</Label>
-                                        <Input placeholder="Enter your phone number" />
-                                    </TextField>
-                                    <TextField className="w-full" name="company" variant="secondary">
-                                        <Label>Company</Label>
-                                        <Input placeholder="Enter your company name" />
-                                    </TextField>
-                                    <TextField className="w-full" name="message" variant="secondary">
-                                        <Label>Message</Label>
-                                        <Input placeholder="Enter your message" />
-                                    </TextField>
-                                </form>
+                                <AdoptForm petName={petName}/>
                             </Surface>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button slot="close" variant="secondary">
-                                Cancel
-                            </Button>
-                            <Button slot="close">Send Message</Button>
-                        </Modal.Footer>
                     </Modal.Dialog>
                 </Modal.Container>
             </Modal.Backdrop>

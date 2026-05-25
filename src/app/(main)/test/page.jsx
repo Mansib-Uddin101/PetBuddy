@@ -1,68 +1,188 @@
+"use client"
+import React, { useState } from 'react';
 
-import {Envelope} from "@gravity-ui/icons";
-import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
-import React from 'react'
+const PetDetailsPage = () => {
+  // Mock logged-in user data
+  const currentUser = {
+    name: "John Doe",
+    email: "johndoe@example.com"
+  };
 
-const testing = () => {
-    return (
-        <div className='py-20 flex justify-center items-center'>
-            <Modal>
-                <Button className='py-2.5 px-4 rounded-xl bg-[#D66237] text-white font-semibold text-sm transition-all hover:scale-105 duration-300 active:bg-[#ae4725] shadow-sm'>
-                        Adopt Now
-                    </Button>
-                <Modal.Backdrop>
-                    <Modal.Container placement="auto">
-                        <Modal.Dialog className="sm:max-w-md">
-                            <Modal.CloseTrigger />
-                            <Modal.Header>
-                                <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                    <Envelope className="size-5" />
-                                </Modal.Icon>
-                                <Modal.Heading>Contact Us</Modal.Heading>
-                                <p className="mt-1.5 text-sm leading-5 text-muted">
-                                    Fill out the form below and we'll get back to you. The modal adapts automatically
-                                    when the keyboard appears on mobile.
-                                </p>
-                            </Modal.Header>
-                            <Modal.Body className="p-6">
-                                <Surface variant="default">
-                                    <form className="flex flex-col gap-4">
-                                        <TextField className="w-full" name="name" type="text" variant="secondary">
-                                            <Label>Name</Label>
-                                            <Input placeholder="Enter your name" />
-                                        </TextField>
-                                        <TextField className="w-full" name="email" type="email" variant="secondary">
-                                            <Label>Email</Label>
-                                            <Input placeholder="Enter your email" />
-                                        </TextField>
-                                        <TextField className="w-full" name="phone" type="tel" variant="secondary">
-                                            <Label>Phone</Label>
-                                            <Input placeholder="Enter your phone number" />
-                                        </TextField>
-                                        <TextField className="w-full" name="company" variant="secondary">
-                                            <Label>Company</Label>
-                                            <Input placeholder="Enter your company name" />
-                                        </TextField>
-                                        <TextField className="w-full" name="message" variant="secondary">
-                                            <Label>Message</Label>
-                                            <Input placeholder="Enter your message" />
-                                        </TextField>
-                                    </form>
-                                </Surface>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button slot="close" variant="secondary">
-                                    Cancel
-                                </Button>
-                                <Button slot="close">Send Message</Button>
-                            </Modal.Footer>
-                        </Modal.Dialog>
-                    </Modal.Container>
-                </Modal.Backdrop>
-            </Modal>
+  // Mock pet data
+  const pet = {
+    id: 2,
+    name: "Whiskers",
+    category: "Cat",
+    breed: "Siamese",
+    age: "1 year",
+    adoptionFee: 500,
+    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=600",
+    description: "Whiskers is an affectionate, energetic, and incredibly vocal Siamese companion looking for a loving home. She loves chasing laser pointers and cuddling on your lap during cold evenings. She gets along great with other friendly pets!",
+    location: "Dhaka, Bangladesh"
+  };
 
+  // Form State
+  const [formData, setFormData] = useState({
+    pickupDate: "",
+    message: ""
+  });
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Handle Form Submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const adoptionApplication = {
+      petName: pet.name,
+      userName: currentUser.name,
+      userEmail: currentUser.email,
+      pickupDate: formData.pickupDate,
+      message: formData.message,
+      status: "pending" // Default status
+    };
+
+    console.log("Adoption Application Submitted:", adoptionApplication);
+    // Process backend API endpoint handling here...
+    setIsSubmitted(true);
+  };
+
+  return (
+    <div className="max-w-[1200px] mx-auto px-5 py-10 font-sans text-slate-800">
+      
+      {/* Header Area */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-slate-900">Pet Details</h2>
+      </div>
+
+      {/* Main Layout Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        
+        {/* LEFT SECTION: Pet Details (Takes 2/3 space on large screens) */}
+        <div className="lg:col-span-2 bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+          
+          {/* Image & Category Badge Container */}
+          <div className="relative w-full h-[400px] bg-slate-100">
+            <img 
+              src={pet.image} 
+              alt={pet.name} 
+              className="w-full h-full object-cover"
+            />
+            <span className="absolute top-4 left-4 bg-amber-100 text-amber-700 font-semibold text-xs px-3 py-1 rounded-full">
+              {pet.category}
+            </span>
+          </div>
+          
+          {/* Pet Info Profile */}
+          <div className="p-8">
+            <div className="flex justify-between items-center mb-5">
+              <h1 className="text-3xl font-bold text-slate-900">{pet.name}</h1>
+              <span className="text-xl font-bold text-emerald-500">
+                Fee: ৳{pet.adoptionFee === 0 ? "Free" : pet.adoptionFee}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6 text-sm text-slate-600">
+              <div><strong className="text-slate-800">Breed:</strong> {pet.breed}</div>
+              <div><strong className="text-slate-800">Age:</strong> {pet.age}</div>
+              <div><strong className="text-slate-800">Location:</strong> {pet.location}</div>
+            </div>
+
+            <hr className="border-t border-slate-200 my-6" />
+
+            <h3 className="text-lg font-semibold text-slate-900 mb-3">About {pet.name}</h3>
+            <p className="text-sm sm:text-base leading-relaxed text-slate-600">{pet.description}</p>
+          </div>
         </div>
-    )
-}
 
-export default testing
+        {/* RIGHT SECTION: Adoption Form Side Panel (Takes 1/3 space) */}
+        <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 sticky top-6">
+          <h3 className="text-xl font-bold text-slate-900 mb-6">Adopt {pet.name}</h3>
+          
+          {isSubmitted ? (
+            <div className="bg-green-50 border border-green-200 text-green-800 p-5 rounded-xl text-center space-y-2">
+              <h4 className="font-bold text-lg">🎉 Request Submitted!</h4>
+              <p className="text-sm">Your application for {pet.name} is now <strong className="font-semibold">pending</strong> review.</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              
+              {/* Pet Name (Read-Only) */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Pet Name</label>
+                <input 
+                  type="text" 
+                  value={pet.name} 
+                  readOnly 
+                  className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400 text-sm cursor-not-allowed outline-none" 
+                />
+              </div>
+
+              {/* User Name (Read-Only) */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Your Name</label>
+                <input 
+                  type="text" 
+                  value={currentUser.name} 
+                  readOnly 
+                  className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400 text-sm cursor-not-allowed outline-none" 
+                />
+              </div>
+
+              {/* User Email (Read-Only) */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Your Email</label>
+                <input 
+                  type="email" 
+                  value={currentUser.email} 
+                  readOnly 
+                  className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400 text-sm cursor-not-allowed outline-none" 
+                />
+              </div>
+
+              {/* Pickup Date Input */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+                  Target Pickup Date <span className="text-red-500">*</span>
+                </label>
+                <input 
+                  type="date" 
+                  required
+                  value={formData.pickupDate} 
+                  onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
+                  className="p-2.5 rounded-lg border border-slate-300 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors" 
+                />
+              </div>
+
+              {/* Message Textarea */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+                  Message to Shelter <span className="text-red-500">*</span>
+                </label>
+                <textarea 
+                  rows="4"
+                  required
+                  placeholder="Tell us about your experience with pets..."
+                  value={formData.message} 
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="p-2.5 rounded-lg border border-slate-300 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none resize-y transition-colors font-sans" 
+                />
+              </div>
+
+              {/* Submit Action Button */}
+              <button 
+                type="submit" 
+                className="mt-2 bg-[#d65a31] hover:bg-[#be4f29] text-white py-3 px-4 rounded-lg font-semibold text-base transition-colors shadow-sm cursor-pointer"
+              >
+                Adopt Now
+              </button>
+            </form>
+          )}
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+export default PetDetailsPage;
