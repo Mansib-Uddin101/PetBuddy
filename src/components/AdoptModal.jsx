@@ -1,85 +1,61 @@
-import React from 'react'
+"use client";
 
-const AdoptModal = () => {
+import {Envelope} from "@gravity-ui/icons";
+import {Button, Input, Label, Modal, Surface, TextField} from "@heroui/react";
+
+export function WithForm() {
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 sticky top-6">
-          <h3 className="text-xl font-bold text-slate-900 mb-6">Adopt {pet.name}</h3>
-          
-          {isSubmitted ? (
-            <div className="bg-green-50 border border-green-200 text-green-800 p-5 rounded-xl text-center space-y-2">
-              <h4 className="font-bold text-lg">🎉 Request Submitted!</h4>
-              <p className="text-sm">Your application for {pet.name} is now <strong className="font-semibold">pending</strong> review.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Pet Name</label>
-                <input 
-                  type="text" 
-                  value={pet.name} 
-                  readOnly 
-                  className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400 text-sm cursor-not-allowed outline-none" 
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Your Name</label>
-                <input 
-                  type="text" 
-                  value={currentUser.name} 
-                  readOnly 
-                  className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400 text-sm cursor-not-allowed outline-none" 
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">Your Email</label>
-                <input 
-                  type="email" 
-                  value={currentUser.email} 
-                  readOnly 
-                  className="p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-400 text-sm cursor-not-allowed outline-none" 
-                />
-              </div>
-              
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  Target Pickup Date <span className="text-red-500">*</span>
-                </label>
-                <input 
-                  type="date" 
-                  required
-                  value={formData.pickupDate} 
-                  onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
-                  className="p-2.5 rounded-lg border border-slate-300 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-colors" 
-                />
-              </div>
-
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">
-                  Message to Shelter <span className="text-red-500">*</span>
-                </label>
-                <textarea 
-                  rows="4"
-                  required
-                  placeholder="Tell us about your experience with pets..."
-                  value={formData.message} 
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="p-2.5 rounded-lg border border-slate-300 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none resize-y transition-colors font-sans" 
-                />
-              </div>
-
-              <button 
-                type="submit" 
-                className="mt-2 bg-[#d65a31] hover:bg-[#be4f29] text-white py-3 px-4 rounded-lg font-semibold text-base transition-colors shadow-sm cursor-pointer"
-              >
-                Adopt Now
-              </button>
-            </form>
-          )}
-        </div>
-  )
+    <Modal>
+      <Button variant="secondary">Open Contact Form</Button>
+      <Modal.Backdrop>
+        <Modal.Container placement="auto">
+          <Modal.Dialog className="sm:max-w-md">
+            <Modal.CloseTrigger />
+            <Modal.Header>
+              <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
+                <Envelope className="size-5" />
+              </Modal.Icon>
+              <Modal.Heading>Contact Us</Modal.Heading>
+              <p className="mt-1.5 text-sm leading-5 text-muted">
+                Fill out the form below and we'll get back to you. The modal adapts automatically
+                when the keyboard appears on mobile.
+              </p>
+            </Modal.Header>
+            <Modal.Body className="p-6">
+              <Surface variant="default">
+                <form className="flex flex-col gap-4">
+                  <TextField className="w-full" name="name" type="text" variant="secondary">
+                    <Label>Name</Label>
+                    <Input placeholder="Enter your name" />
+                  </TextField>
+                  <TextField className="w-full" name="email" type="email" variant="secondary">
+                    <Label>Email</Label>
+                    <Input placeholder="Enter your email" />
+                  </TextField>
+                  <TextField className="w-full" name="phone" type="tel" variant="secondary">
+                    <Label>Phone</Label>
+                    <Input placeholder="Enter your phone number" />
+                  </TextField>
+                  <TextField className="w-full" name="company" variant="secondary">
+                    <Label>Company</Label>
+                    <Input placeholder="Enter your company name" />
+                  </TextField>
+                  <TextField className="w-full" name="message" variant="secondary">
+                    <Label>Message</Label>
+                    <Input placeholder="Enter your message" />
+                  </TextField>
+                </form>
+              </Surface>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button slot="close" variant="secondary">
+                Cancel
+              </Button>
+              <Button slot="close">Send Message</Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
+    </Modal>
+  );
 }
-
-export default AdoptModal

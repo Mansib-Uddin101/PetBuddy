@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import React from 'react'
 import { FaBangladeshiTakaSign } from 'react-icons/fa6'
+import { WithForm } from './AdoptModal'
+import Link from 'next/link'
 
 const PetCard = ({ petInfo }) => {
     console.log(petInfo)
@@ -27,7 +29,7 @@ const PetCard = ({ petInfo }) => {
 
             <div className='relative h-64 w-full overflow-hidden'>
                 <Image
-                    src={petData.imageUrl}
+                    src={petInfo.imageUrl}
                     fill
                     className='object-cover transition-transform duration-500 ease-in-out group-hover:scale-105'
                     alt={petInfo.name}
@@ -58,9 +60,11 @@ const PetCard = ({ petInfo }) => {
                     </div>
                 </div>
                 <div className='grid grid-cols-2 gap-3 pt-1'>
-                    <button className='w-full py-1.5 px-2 rounded-xl border border-[#315579] text-[#315579] font-bold transition-all duration-300 hover:scale-105 active:bg-gray-100'>
-                        View Details
-                    </button>
+                    <Link href={`/details/${petInfo._id}`}>
+                        <button className='w-full py-1.5 px-2 rounded-xl border border-[#315579] text-[#315579] font-bold transition-all duration-300 hover:scale-105 active:bg-gray-100'>
+                            View Details
+                        </button>
+                    </Link>
 
                     <button className='w-full py-2.5 px-4 rounded-xl bg-[#D66237] text-white font-semibold text-sm transition-all hover:scale-105 duration-300 active:bg-[#ae4725] shadow-sm'>
                         Adopt Now

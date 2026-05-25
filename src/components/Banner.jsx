@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import banner from '@/assets/pet_hero.png'
+import { Heart } from 'lucide-react'
 
 const Banner = () => {
   return (
@@ -19,8 +20,8 @@ const Banner = () => {
           
           <div>
             {/* 6. Made button stretch on mobile for better thumb tap-targets */}
-            <button className="w-full sm:w-auto bg-[#D66237] mt-2 hover:bg-[#b74718] hover:scale-105 active:bg-[#96340e] text-white font-semibold px-8 py-3.5 rounded-lg transition duration-200 shadow-md">
-              Adopt Now
+            <button className="w-full flex gap-1.5 items-center justify-center sm:w-auto bg-[#D66237] mt-2 hover:bg-[#b74718] hover:scale-105 active:bg-[#96340e] text-white font-semibold px-8 py-3.5 rounded-lg transition duration-200 shadow-md">
+            Adopt Now<Heart />
             </button>
           </div>
         </div>
