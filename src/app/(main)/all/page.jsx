@@ -32,7 +32,7 @@ const Page = async () => {
             <p className='text-slate-400'>No buddies found at the moment. Check back later!</p>
           </div>
         ) : (
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8'>
+          <div className='grid grid-cols-1 mx-auto md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8'>
             {petsData.map((pet) => (
               <PetCard key={pet._id} petInfo={pet} />
             ))}
